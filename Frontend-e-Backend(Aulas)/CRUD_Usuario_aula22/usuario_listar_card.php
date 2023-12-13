@@ -1,5 +1,7 @@
 <?php
-    // <!-- Conexão com o BD -->
+    // <!-- Inclui o array que simula um BD -->
+    require_once("conexao_bd_array.php");
+    // Inclui o arquivo de conexao com o BD
     require_once("config.php");
 
     function getFuncaoUsuario($funcao) {
@@ -66,46 +68,40 @@
             <thead>
                 <tr>
                     <th>id</th>
-                    <th>nome</th>
+                    <th>Nome</th>
                     <th>Email</th>
-                    <th>Senha</th>
                     <th>Data Cadastro</th>
                     <th>Situação</th>
                     <th>Função</th>
-                    <th>foto</th>
+                    <th>Foto</th>
                     <th>Ação</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                  // Acessa o array de USUÁRIOS na SESSÃO (simula uma tabela de BD)
-                //  $usuarios = $_SESSION['usuariosBD'];
+                 $usuarios = $_SESSION['usuariosBD'];
                  
-                $sql = "SELECT * FROM usuarios";
-                $res = $conn->query($sql);
-                $usuarios = $res->fetch_all(MYSQLI_ASSOC);
-
-                // var_dump($usuarios);
-
+                //  var_dump($_SESSION['usuariosBD']);
+                
                     // Exibe os dados na tabela
                     foreach ($usuarios as $index => $usuario) {
                      echo "<tr>
-                        <td>{$usuario['id']}</td>
-                        <td>{$usuario['nome']}</td>
-                        <td>{$usuario['email']}</td>
-                        <td>{$usuario['senha']}</td>
-                        <td>{$usuario['dtcadastro']}</td>
-                        <td>" . ($usuario['situacao'] == '1' ? 'Ativo' : 'Inativo') . "</td>
-                        <td>" . getFuncaoUsuario($usuario['funcao']) . "</td>
-                        <td><img src='{$usuario['foto']}' alt='foto' style='width: 50px; height: 50px;'></td>
+                        <td>{$usuario['id_usuario']}</td>
+                        <td>{$usuario['Nome']}</td>
+                        <td>{$usuario['Email']}</td>
+                        <td>{$usuario['DataCadastro']}</td>
+                        <td>" . ($usuario['Situacao'] == '1' ? 'Ativo' : 'Inativo') . "</td>
+                        <td>" . getFuncaoUsuario($usuario['Funcao']) . "</td>
+                        <td><img src='{$usuario['Foto']}' alt='Foto' style='width: 50px; height: 50px;'></td>
                         <td>
-                            <a href='usuario_editar.php?acao=visualizar&id=" . $usuario['id'] . "' class='btn btn-info btn-sm'>
+                            <a href='usuario_editar.php?acao=visualizar&id=" . $usuario['id_usuario'] . "' class='btn btn-info btn-sm'>
                                 <i class='bi bi-eye'></i> Ver
                             </a>
-                            <a href='usuario_editar.php?acao=editar&id=" . $usuario['id'] . "' class='btn btn-warning btn-sm'>
+                            <a href='usuario_editar.php?acao=editar&id=" . $usuario['id_usuario'] . "' class='btn btn-warning btn-sm'>
                                 <i class='bi bi-pencil'></i> Editar
                             </a>
-                            <a href='usuario_bd.php?acao=excluir&id=" . $usuario['id'] . "' class='btn btn-danger btn-sm'
+                            <a href='usuario.php?acao=excluir&id=" . $usuario['id_usuario'] . "' class='btn btn-danger btn-sm'
                             onclick=' return confirm(\"Tem certeza que deseja excluir este usuário?\")'>
                              <i class='bi bi-trash'></i> Excluir
                          </a>
@@ -119,19 +115,20 @@
                     
         <div class="row ">
 
+            <!-- Acessa o array de USUÁRIOS na SESSÃO (simula uma tabela de BD) -->
+            <?php $usuarios = $_SESSION['usuariosBD']; ?>           
         
             <?php foreach ($usuarios as $index => $usuario): ?> 
             
                 <div class="col-md-3 m-1 ">
                     <div class="card" style="width: 18rem; ">
-                    <img src= <?= $usuario['foto'] ?> class="card-img-top" alt="...">
+                    <img src= <?= $usuario['Foto'] ?> class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title"> <?= $usuario['nome'] ?> </h5>
-                            <p class="card-text"> <?=  $usuario['email'] ?> </p>
-                            <p class="card-text"> <?=  $usuario['senha'] ?> </p>
-                            <a href="usuario_editar.php?acao=visualizar&id= <?= $usuario['id'] ?> " class="btn btn-sm btn-primary bi bi-eye"> Ver</a>
-                            <a href="usuario_editar.php?acao=editar&id= <?= $usuario['id'] ?> " class="btn btn-sm btn-primary bi-pencil"> Editar</a>
-                            <a href="usuario_bd.php?acao=excluir&id= <?= $usuario['id'] ?> " class="btn btn-sm btn-danger bi-trash" onclick= "return confirm('Tem certeza que deseja excluir este usuário?')"> Excluir</a>
+                            <h5 class="card-title"> <?= $usuario['Nome'] ?> </h5>
+                            <p class="card-text"> <?=  $usuario['Email'] ?> </p>
+                            <a href="usuario_editar.php?acao=visualizar&id= <?= $usuario['id_usuario'] ?> " class="btn btn-sm btn-primary bi bi-eye"> Ver</a>
+                            <a href="usuario_editar.php?acao=editar&id= <?= $usuario['id_usuario'] ?> " class="btn btn-sm btn-primary bi-pencil"> Editar</a>
+                            <a href="usuario.php?acao=excluir&id= <?= $usuario['id_usuario'] ?> " class="btn btn-sm btn-danger bi-trash" onclick= "return confirm('Tem certeza que deseja excluir este usuário?')"> Excluir</a>
                         </div>
                     </div>
                 </div>
@@ -142,8 +139,8 @@
             <?php foreach ($usuarios as $index => $usuario): ?> 
             
                 <div class="col-md-3">
-                    <a href="usuario_editar.php?id= <?= $usuario['id'] ?> " class="">
-                        <img src= <?= $usuario['foto'] ?> class="card-img-top shadow" alt="..." >
+                    <a href="usuario_editar.php?id= <?= $usuario['id_usuario'] ?> " class="">
+                        <img src= <?= $usuario['Foto'] ?> class="card-img-top shadow" alt="..." >
                     </a>
                 </div>
 
@@ -168,13 +165,12 @@
 <!-- <?php foreach ($usuarios as $index => $usuario): ?>
     <tr>
         <td><?= $index + 1 ?></td>
-        <td><?= $usuario['nome'] ?></td>
-        <td><?= $usuario['email'] ?></td>
-        <td><?= $usuario['senha'] ?></td>
-        <td><?= $usuario['dtcadastro'] ?></td>
-        <td><?= $usuario['situacao'] == '1' ? 'Ativo' : 'Inativo' ?></td>
-        <td><?= getFuncaoUsuario($usuario['funcao']) ?></td>
-        <td><img src="<?= $usuario['foto'] ?>" alt="foto" style="width: 50px; height: 50px;"></td>
+        <td><?= $usuario['Nome'] ?></td>
+        <td><?= $usuario['Email'] ?></td>
+        <td><?= $usuario['DataCadastro'] ?></td>
+        <td><?= $usuario['Situacao'] == '1' ? 'Ativo' : 'Inativo' ?></td>
+        <td><?= getFuncaoUsuario($usuario['Funcao']) ?></td>
+        <td><img src="<?= $usuario['Foto'] ?>" alt="Foto" style="width: 50px; height: 50px;"></td>
         <td>
             <a href="usuario_editar.php?id=<?= $index + 1 ?>" class="btn btn-info btn-sm">
                 <i class="bi bi-eye"></i> Ver
@@ -182,7 +178,7 @@
             <a href="usuario_editar.php?id=<?= $index + 1 ?>" class="btn btn-warning btn-sm">
                 <i class="bi bi-pencil"></i> Editar
             </a>
-            <a href="usuario_bd.php?acao=excluir&id=<?= $user['id'] ?>" class="btn btn-danger btn-sm">
+            <a href="usuario.php?acao=excluir&id=<?= $user['id'] ?>" class="btn btn-danger btn-sm">
                 <i class="bi bi-trash"></i> Excluir
             </a>
         </td>

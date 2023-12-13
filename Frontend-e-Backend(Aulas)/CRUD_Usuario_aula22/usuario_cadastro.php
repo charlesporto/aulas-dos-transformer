@@ -43,10 +43,6 @@
                         <input type="email" class="form-control" id="email" name="email" required>
                     </div>
                     <div class="mb-3">
-                        <label for="senha" class="form-label">Email:</label>
-                        <input type="passaword" class="form-control" id="email" name="email" required>
-                    </div>
-                    <div class="mb-3">
                         <label for="data_cadastro" class="form-label">Data Cadastro:</label>
                         <input type="date" class="form-control" id="data_cadastro" name="data_cadastro" placeholder="YYYY-MM-DD" required>
                     </div>
