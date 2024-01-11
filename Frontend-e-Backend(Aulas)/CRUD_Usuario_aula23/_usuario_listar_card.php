@@ -80,10 +80,15 @@
             <tbody>
                 <?php
                  // Acessa o array de USUÁRIOS na SESSÃO (simula uma tabela de BD)
-                 $usuarios = $_SESSION['usuariosBD'];
+                //  $usuarios = $_SESSION['usuariosBD'];
                  
                 //  var_dump($_SESSION['usuariosBD']);
+
+                $sql = "SELECT * FROM usuarios";
+                $res = $conn->query($sql);
+                $qtd = $res->num_rows;
                 
+                $usuarios= $res;
                     // Exibe os dados na tabela
                     foreach ($usuarios as $index => $usuario) {
                      echo "<tr>

@@ -1,8 +1,7 @@
 <?php
-    // <!-- Conexão com o BD -->
-    require_once("config.php");
+    require_once 'config.php';
 
-    function getFuncaoUsuario($funcao) {
+    function getfuncaoUsuario($funcao) {
         switch ($funcao) {
             case 1:
                 return 'Usuário';
@@ -54,9 +53,9 @@
         ?>
 
         <!-- <h2>Lista de Usuários</h2> -->
-        <div  class="container pt-1 mt-2 text-muted">
+        <div  class="container pt-1 mt-2 text-muted d-flex justify-content-between" >
             <h4>Lista de Usuários</h4>
-            <a href="usuario_cadastro.php" ><i class="bi bi-plus-circle"></i> Adicionar</a>
+            <a href="usuario_cadastro.php" class="btn btn-primary" ><i class="bi bi-plus-circle"></i> Adicionar</a>
         </div>
         <!-- <div  class="container pt-1 mt-2 text-muted d-flex align-items-center justify-content-space-between">
             <div><h4>Lista de Usuários</h4></div>
@@ -67,8 +66,7 @@
                 <tr>
                     <th>id</th>
                     <th>nome</th>
-                    <th>Email</th>
-                    <th>Senha</th>
+                    <th>email</th>
                     <th>Data Cadastro</th>
                     <th>Situação</th>
                     <th>Função</th>
@@ -80,23 +78,22 @@
                 <?php
                  // Acessa o array de USUÁRIOS na SESSÃO (simula uma tabela de BD)
                 //  $usuarios = $_SESSION['usuariosBD'];
-                 
+                
                 $sql = "SELECT * FROM usuarios";
-                $res = $conn->query($sql);
+                $res = $conn->query($sql); 
                 $usuarios = $res->fetch_all(MYSQLI_ASSOC);
 
                 // var_dump($usuarios);
-
+                
                     // Exibe os dados na tabela
                     foreach ($usuarios as $index => $usuario) {
                      echo "<tr>
                         <td>{$usuario['id']}</td>
                         <td>{$usuario['nome']}</td>
                         <td>{$usuario['email']}</td>
-                        <td>{$usuario['senha']}</td>
                         <td>{$usuario['dtcadastro']}</td>
                         <td>" . ($usuario['situacao'] == '1' ? 'Ativo' : 'Inativo') . "</td>
-                        <td>" . getFuncaoUsuario($usuario['funcao']) . "</td>
+                        <td>" . getfuncaoUsuario($usuario['funcao']) . "</td>
                         <td><img src='{$usuario['foto']}' alt='foto' style='width: 50px; height: 50px;'></td>
                         <td>
                             <a href='usuario_editar.php?acao=visualizar&id=" . $usuario['id'] . "' class='btn btn-info btn-sm'>
@@ -119,6 +116,8 @@
                     
         <div class="row ">
 
+            <!-- Acessa o BD de USUÁRIOS -->
+            
         
             <?php foreach ($usuarios as $index => $usuario): ?> 
             
@@ -128,7 +127,6 @@
                         <div class="card-body">
                             <h5 class="card-title"> <?= $usuario['nome'] ?> </h5>
                             <p class="card-text"> <?=  $usuario['email'] ?> </p>
-                            <p class="card-text"> <?=  $usuario['senha'] ?> </p>
                             <a href="usuario_editar.php?acao=visualizar&id= <?= $usuario['id'] ?> " class="btn btn-sm btn-primary bi bi-eye"> Ver</a>
                             <a href="usuario_editar.php?acao=editar&id= <?= $usuario['id'] ?> " class="btn btn-sm btn-primary bi-pencil"> Editar</a>
                             <a href="usuario_bd.php?acao=excluir&id= <?= $usuario['id'] ?> " class="btn btn-sm btn-danger bi-trash" onclick= "return confirm('Tem certeza que deseja excluir este usuário?')"> Excluir</a>
@@ -170,10 +168,9 @@
         <td><?= $index + 1 ?></td>
         <td><?= $usuario['nome'] ?></td>
         <td><?= $usuario['email'] ?></td>
-        <td><?= $usuario['senha'] ?></td>
         <td><?= $usuario['dtcadastro'] ?></td>
         <td><?= $usuario['situacao'] == '1' ? 'Ativo' : 'Inativo' ?></td>
-        <td><?= getFuncaoUsuario($usuario['funcao']) ?></td>
+        <td><?= getfuncaoUsuario($usuario['funcao']) ?></td>
         <td><img src="<?= $usuario['foto'] ?>" alt="foto" style="width: 50px; height: 50px;"></td>
         <td>
             <a href="usuario_editar.php?id=<?= $index + 1 ?>" class="btn btn-info btn-sm">

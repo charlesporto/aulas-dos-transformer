@@ -15,6 +15,7 @@ if (isset($_GET['id']) && isset($_GET['acao'])) {
     ($acao == "visualizar") ? $desabilitado = "disabled" : $desabilitado = "";
     
     
+    
     // Procura o índice do usuário no array com base no ID
     $indice_usuario = -1;
     foreach ($_SESSION['usuariosBD'] as $indice => $usuario) {

@@ -33,7 +33,7 @@
         <div class="row mt-2">
             <div class="col-md-6">
                 
-                <form action="Usuario.php" method="post" enctype="multipart/form-data">
+                <form action="Usuario_bd.php" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome:</label>
                         <input type="text" class="form-control" id="nome" name="nome" required>
@@ -43,8 +43,8 @@
                         <input type="email" class="form-control" id="email" name="email" required>
                     </div>
                     <div class="mb-3">
-                        <label for="senha" class="form-label">Email:</label>
-                        <input type="passaword" class="form-control" id="email" name="email" required>
+                        <label for="senha" class="form-label">Senha:</label>
+                        <input type="password" class="form-control" id="senha" name="senha" required>
                     </div>
                     <div class="mb-3">
                         <label for="data_cadastro" class="form-label">Data Cadastro:</label>
